@@ -1,0 +1,34 @@
+# =====================================================
+# Skript by GODZILLA1o1
+# Do NOT claim this Skript as your own.
+# Feel free to use and modify, but give proper credit!
+# =====================================================
+
+on script load:
+    set {isEndRestricted} to true
+
+# Main /end command with subcommands
+command /end [<text>]:
+    permission: op
+    trigger:
+        if arg-1 is "enable":
+            set {isEndRestricted} to true
+            send "&aEnd access is now restricted."
+        else if arg-1 is "on":
+            set {isEndRestricted} to true
+            send "&aEnd access is now restricted."
+        else if arg-1 is "disable":
+            set {isEndRestricted} to false
+            send "&cEnd access is now allowed."
+        else if arg-1 is "off":
+            set {isEndRestricted} to false
+            send "&cEnd access is now allowed."
+        else:
+            send "&eUsage: /end <enable|disable|on|off>"
+
+# Prevent players from entering the End when restriction is active
+on portal enter:
+    if {isEndRestricted} is true:
+        if event-world is "world_the_end":
+            cancel event
+            send "&cYou cannot go to the End at this time." to player
